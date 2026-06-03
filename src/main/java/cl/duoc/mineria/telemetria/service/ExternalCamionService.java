@@ -20,7 +20,7 @@ public class ExternalCamionService {
 
             return existe != null && existe;
         } catch (Exception e) {
-            System.out.println("⚠️ [Telemetría] Falló la conexión con Camiones (8084). Activando tolerancia para desarrollo local.");
+            System.out.println("[Telemetría] Falló la conexión con Camiones (8084). Activando tolerancia para desarrollo local.");
             return true; // Retorna true temporalmente en fallback para no bloquear tus pruebas si el otro servicio está apagado
         }
     }
