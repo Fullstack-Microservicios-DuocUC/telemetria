@@ -9,7 +9,6 @@ public class WebClientConfig {
 
     @Bean
     public WebClient webClient() {
-        // .create() levanta el objeto de forma nativa sin pedirle configuraciones a Spring
-        return WebClient.create();
+        return WebClient.builder().build();
     }
 }

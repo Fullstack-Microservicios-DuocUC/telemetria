@@ -2,6 +2,9 @@ package cl.duoc.mineria.telemetria.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+
+import cl.duoc.mineria.telemetria.exception.ServicioExternoNoDisponibleException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,11 +20,12 @@ public class ExternalCamionService {
                     .retrieve()
                     .bodyToMono(Boolean.class)
                     .block();
-
             return existe != null && existe;
+        } catch (WebClientResponseException.NotFound e) {
+            return false;
         } catch (Exception e) {
-            System.out.println("[Telemetría] Falló la conexión con Camiones (8084). Activando tolerancia para desarrollo local.");
-            return true; // Retorna true temporalmente en fallback para no bloquear tus pruebas si el otro servicio está apagado
+            throw new ServicioExternoNoDisponibleException(
+                "No se pudo validar el camión " + camionId + ": " + e.getMessage());
         }
     }
 }

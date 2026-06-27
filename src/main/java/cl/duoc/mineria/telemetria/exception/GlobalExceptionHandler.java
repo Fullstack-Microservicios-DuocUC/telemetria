@@ -33,4 +33,13 @@ public class GlobalExceptionHandler {
         problem.setProperty("timestamp", Instant.now());
         return problem;
     }
+
+    @ExceptionHandler(ServicioExternoNoDisponibleException.class)
+    public ProblemDetail handleServicioNoDisponible(ServicioExternoNoDisponibleException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+            HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+        problem.setTitle("Servicio Externo No Disponible");
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
 }
