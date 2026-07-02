@@ -16,7 +16,7 @@ public class ExternalCamionService {
     public boolean verificarCamionExiste(Long camionId) {
         try {
             Boolean existe = webClient.get()
-                    .uri("http://localhost:8084/api/v1/camiones/existe/" + camionId)
+                    .uri("http://camiones/api/v1/camiones/existe/" + camionId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
                     .block();
